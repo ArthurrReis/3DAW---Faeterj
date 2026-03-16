@@ -1,25 +1,56 @@
 <?php
 session_start();
 
-
 if (!isset($_SESSION['alunos'])) {
     $_SESSION['alunos'] = [];
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['btn_adicionar'])) {
-    $novoAluno = [
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['btn_salvar'])) {
+    $aluno = [
         'matricula' => htmlspecialchars($_POST['matricula']),
         'nome'      => htmlspecialchars($_POST['nome']),
         'email'     => htmlspecialchars($_POST['email'])
     ];
 
-    $_SESSION['alunos'][] = $novoAluno;
+    $index = $_POST['index_edicao'];
+
+    if ($index !== "") {
+       
+        $_SESSION['alunos'][$index] = $aluno;
+    } else {
+        
+        $_SESSION['alunos'][] = $aluno;
+    }
+    
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+
+if (isset($_GET['excluir'])) {
+    $id = $_GET['excluir'];
+    unset($_SESSION['alunos'][$id]);
+    $_SESSION['alunos'] = array_values($_SESSION['alunos']); 
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
 }
 
 if (isset($_GET['limpar'])) {
     $_SESSION['alunos'] = [];
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
+}
+
+
+$alunoEdicao = null;
+$indexEdicao = "";
+
+if (isset($_GET['editar'])) {
+    $indexEdicao = $_GET['editar'];
+    if (isset($_SESSION['alunos'][$indexEdicao])) {
+        $alunoEdicao = $_SESSION['alunos'][$indexEdicao];
+    }
 }
 ?>
 
@@ -29,25 +60,43 @@ if (isset($_GET['limpar'])) {
     <meta charset="UTF-8">
     <title>Cadastro de Alunos</title>
     <style>
-        body { font-family: sans-serif; margin: 40px; line-height: 1.6; }
-        form { background: #f4f4f4; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
-        input { display: block; margin-bottom: 10px; padding: 8px; width: 300px; }
-        table { width: 100%; border-collapse: collapse; }
+        body { font-family: sans-serif; margin: 40px; line-height: 1.6; color: #333; }
+        form { background: #f4f4f4; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #ddd; }
+        input { display: block; margin-bottom: 10px; padding: 8px; width: 300px; border: 1px solid #ccc; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
         th { background-color: #007BFF; color: white; }
-        .btn { padding: 10px 15px; cursor: pointer; border: none; border-radius: 4px; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .btn { padding: 8px 12px; cursor: pointer; border: none; border-radius: 4px; text-decoration: none; display: inline-block; font-size: 14px; }
         .btn-add { background: #28a745; color: white; }
-        .btn-clear { background: #dc3545; color: white; text-decoration: none; font-size: 0.8em; }
+        .btn-edit { background: #ffc107; color: #000; margin-right: 5px; }
+        .btn-del { background: #dc3545; color: white; }
+        .btn-clear { background: #6c757d; color: white; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <h2>Cadastrar Novo Aluno</h2>
+    <h2><?= $alunoEdicao ? "Editar Aluno" : "Cadastrar Novo Aluno" ?></h2>
+    
     <form method="POST">
-        <input type="text" name="matricula" placeholder="Matrícula" required>
-        <input type="text" name="nome" placeholder="Nome Completo" required>
-        <input type="email" name="email" placeholder="E-mail" required>
-        <button type="submit" name="btn_adicionar" class="btn btn-add">Adicionar Aluno</button>
+        <input type="hidden" name="index_edicao" value="<?= $indexEdicao ?>">
+        
+        <input type="text" name="matricula" placeholder="Matrícula" required 
+               value="<?= $alunoEdicao ? $alunoEdicao['matricula'] : '' ?>">
+        
+        <input type="text" name="nome" placeholder="Nome Completo" required 
+               value="<?= $alunoEdicao ? $alunoEdicao['nome'] : '' ?>">
+        
+        <input type="email" name="email" placeholder="E-mail" required 
+               value="<?= $alunoEdicao ? $alunoEdicao['email'] : '' ?>">
+        
+        <button type="submit" name="btn_salvar" class="btn btn-add">
+            <?= $alunoEdicao ? "Salvar Alterações" : "Adicionar Aluno" ?>
+        </button>
+        
+        <?php if ($alunoEdicao): ?>
+            <a href="<?= $_SERVER['PHP_SELF'] ?>" class="btn">Cancelar</a>
+        <?php endif; ?>
     </form>
 
     <hr>
@@ -59,27 +108,32 @@ if (isset($_GET['limpar'])) {
                 <th>Matrícula</th>
                 <th>Nome</th>
                 <th>E-mail</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
             <?php if (empty($_SESSION['alunos'])): ?>
                 <tr>
-                    <td colspan="3">Nenhum aluno cadastrado.</td>
+                    <td colspan="4">Nenhum aluno cadastrado.</td>
                 </tr>
             <?php else: ?>
-                <?php foreach ($_SESSION['alunos'] as $aluno): ?>
+                <?php foreach ($_SESSION['alunos'] as $index => $aluno): ?>
                     <tr>
                         <td><?= $aluno['matricula'] ?></td>
                         <td><?= $aluno['nome'] ?></td>
                         <td><?= $aluno['email'] ?></td>
+                        <td>
+                            <a href="?editar=<?= $index ?>" class="btn btn-edit">Editar</a>
+                            <a href="?excluir=<?= $index ?>" class="btn btn-del" onclick="return confirm('Deseja excluir?')">Excluir</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
         </tbody>
     </table>
 
-    <br>
-    <a href="?limpar=true" class="btn btn-clear">Limpar Lista</a>
+    <a href="?limpar=true" class="btn btn-clear">Limpar Toda a Lista</a>
 
 </body>
 </html>
+
