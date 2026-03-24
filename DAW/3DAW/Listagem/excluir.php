@@ -1,5 +1,5 @@
 <?php
-require_once 'funcoes.php';
+require_once 'funçoes.php';
 
 if (isset($_GET['id'])) {
     $index = $_GET['id'];
