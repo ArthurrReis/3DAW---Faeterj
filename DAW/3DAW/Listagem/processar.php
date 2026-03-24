@@ -1,5 +1,5 @@
 <?php
-require_once 'funcoes.php';
+require_once 'funçoes.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $alunos = lerAlunos();
