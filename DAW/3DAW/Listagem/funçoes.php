@@ -2,7 +2,7 @@
 $arquivo = 'alunos.txt';
 
 function lerAlunos() {
-    global| $arquivo;
+    global $arquivo;
     if (!file_exists($arquivo)) return [];
     
     $dados = file($arquivo, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
