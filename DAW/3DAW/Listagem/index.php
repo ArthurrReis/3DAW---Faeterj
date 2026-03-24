@@ -1,5 +1,5 @@
 <?php 
-require_once 'funcoes.php';
+require_once 'funçoes.php';
 $alunos = lerAlunos();
 
 $alunoEdicao = null;
