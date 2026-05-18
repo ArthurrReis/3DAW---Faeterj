@@ -22,7 +22,7 @@ if (isset($_GET['editar'])) {
         body { font-family: sans-serif; margin: 40px; }
         form { background: #f4f4f4; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
         
-        input[type="text"], input[type="email"] {
+        input[type="text"] {
             padding: 6px;
             width: 280px;
             border: 1px solid #ccc;
@@ -30,8 +30,17 @@ if (isset($_GET['editar'])) {
             display: block;
             margin-bottom: 4px;
         }
-        input.campo-erro {
+        input[type="text"].campo-erro {
             border-color: red;
+        }
+        button[type="submit"] {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
         }
         .erro { color: red; font-size: 0.85em; margin: 2px 0 12px 0; display: none; }
         .campo { margin-bottom: 12px; }
@@ -47,29 +56,29 @@ if (isset($_GET['editar'])) {
     <h2><?= $alunoEdicao ? "Editar Aluno" : "Novo Aluno" ?></h2>
     
     <form id="formAluno" action="processar.php" method="POST" onsubmit="return validarFormulario()">
-        <input type="hidden" name="index_edicao" id="index_edicao" value="<?= $indexEdicao ?>">
+        <input type="hidden" name="index_edicao" value="<?= $indexEdicao ?>">
         
         <div class="campo">
-            <label for="matricula">Matrícula:</label>
+            Matrícula:<br>
             <input type="text" id="matricula" name="matricula" maxlength="10" value="<?= $alunoEdicao['matricula'] ?? '' ?>">
             <p class="erro" id="erroMatricula"></p>
         </div>
 
         <div class="campo">
-            <label for="nome">Nome:</label>
+            Nome:<br>
             <input type="text" id="nome" name="nome" maxlength="100" value="<?= $alunoEdicao['nome'] ?? '' ?>">
             <p class="erro" id="erroNome"></p>
         </div>
 
         <div class="campo">
-            <label for="email">E-mail:</label>
+            E-mail:<br>
             <input type="text" id="email" name="email" maxlength="150" value="<?= $alunoEdicao['email'] ?? '' ?>">
             <p class="erro" id="erroEmail"></p>
         </div>
 
         <button type="submit"><?= $alunoEdicao ? "Atualizar" : "Cadastrar" ?></button>
         <?php if ($alunoEdicao): ?>
-            <a href="index.php" style="margin-left: 10px;">Cancelar</a>
+            <a href="index.php" style="margin-left: 10px; text-decoration: none; color: #333;">Cancelar</a>
         <?php endif; ?>
     </form>
 
@@ -103,16 +112,16 @@ if (isset($_GET['editar'])) {
 <script>
     function mostrarErro(idCampo, idErro, mensagem) {
         document.getElementById(idCampo).classList.add("campo-erro");
-        var spanErro = document.getElementById(idErro);
-        spanErro.textContent = "⚠ " + mensagem;
-        spanErro.style.display = "block";
+        var elementoErro = document.getElementById(idErro);
+        elementoErro.textContent = "⚠ " + mensagem;
+        elementoErro.style.display = "block";
     }
 
     function limparErro(idCampo, idErro) {
         document.getElementById(idCampo).classList.remove("campo-erro");
-        var spanErro = document.getElementById(idErro);
-        spanErro.textContent = "";
-        spanErro.style.display = "none";
+        var elementoErro = document.getElementById(idErro);
+        elementoErro.textContent = "";
+        elementoErro.style.display = "none";
     }
 
     document.getElementById("matricula").addEventListener("blur", function () {
@@ -146,7 +155,7 @@ if (isset($_GET['editar'])) {
         limparErro("matricula", "erroMatricula");
         return true;
     }
-    
+
     function validarNome() {
         var valor = document.getElementById("nome").value.trim();
 
