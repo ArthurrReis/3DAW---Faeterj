@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Usuário</title>
+</head>
+<body>
+    <h1>Cadastro de Jogador</h1>
+    <form id="form-user">
+        Nome: <input type="text" name="nome" required><br><br>
+        Email: <input type="email" name="email" required><br><br>
+        <button type="submit">Cadastrar</button>
+    </form>
+    <p id="msg"></p>
+    <br><a href="index.html">Voltar ao Painel</a>
+
+    <script>
+        document.getElementById('form-user').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const dados = {
+                acao: "criar", 
+                nome: e.target.nome.value,
+                email: e.target.email.value
+            };
+
+            const req = await fetch('api_usuarios.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+            
+            const res = await req.json();
+            document.getElementById('msg').innerText = res.mensagem;
+            document.getElementById('msg').style.color = res.status === 'success' ? 'green' : 'red';
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

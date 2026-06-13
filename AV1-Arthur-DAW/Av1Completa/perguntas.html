@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestão de Perguntas</title>
+</head>
+<body>
+    <h1>Gerenciar Perguntas</h1>
+    
+    <h3>Criar Múltipla Escolha</h3>
+    <form id="form-multipla">
+        Pergunta: <input type="text" name="pergunta" required><br>
+        Opções (A, B, C, D): 
+        <input type="text" name="opA" placeholder="A" required>
+        <input type="text" name="opB" placeholder="B" required>
+        <input type="text" name="opC" placeholder="C" required>
+        <input type="text" name="opD" placeholder="D" required><br>
+        Gabarito: <input type="text" name="gabarito" required maxlength="1"><br>
+        <button type="submit">Salvar</button>
+    </form>
+    <p id="msg-pergunta"></p>
+
+    <hr>
+
+    <h3>Perguntas no Banco</h3>
+    <button onclick="carregarPerguntas()">Atualizar Lista</button>
+    <div id="lista-perguntas"></div>
+
+    <br><a href="index.html">Voltar ao Painel</a>
+
+    <script>
+        // 1. Lógica para CRIAR pergunta
+        document.getElementById('form-multipla').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const dadosJson = Object.fromEntries(formData.entries());
+            dadosJson.acao = "criar_multipla"; 
+
+            const req = await fetch('api_perguntas.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dadosJson)
+            });
+            
+            const res = await req.json();
+            document.getElementById('msg-pergunta').innerText = res.mensagem;
+            e.target.reset();
+            carregarPerguntas(); 
+        });
+
+        // 2. Lógica para LISTAR do banco
+        async function carregarPerguntas() {
+            // Repare que passamos a acao na URL (GET)
+            const req = await fetch('api_perguntas.php?acao=listar');
+            const res = await req.json();
+            
+            const div = document.getElementById('lista-perguntas');
+            div.innerHTML = "";
+
+            if(res.status === 'success') {
+                res.dados.forEach(p => {
+                    div.innerHTML += `
+                        <p>
+                            <strong>[${p.tipo.toUpperCase()}] ID ${p.id}:</strong> ${p.pergunta} 
+                            <button onclick="deletarPergunta(${p.id})">Excluir</button>
+                        </p>`;
+                });
+            }
+        }
+
+        // 3. Lógica para DELETAR no banco
+        async function deletarPergunta(id) {
+            if(!confirm("Tem certeza que deseja excluir o ID " + id + "?")) return;
+
+            const req = await fetch('api_perguntas.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ acao: "excluir", id: id })
+            });
+            
+            await req.json();
+            carregarPerguntas(); 
+        }
+
+        document.addEventListener('DOMContentLoaded', carregarPerguntas);
+    </script>
+</body>
+</html>
