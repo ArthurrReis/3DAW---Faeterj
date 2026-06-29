@@ -1,0 +1,150 @@
+/* Paleta baseada nas imagens: Preto/Cinza Escuro e Dourado/Amarelo (#d4af37) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header e Menu */
+header {
+    background-color: #2c2c2c;
+    color: #d4af37;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.menu-icon {
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.menu-dropdown {
+    display: none;
+    background-color: #1a1a1a;
+    padding: 15px;
+}
+
+.menu-dropdown ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.menu-dropdown a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu-dropdown a:hover {
+    color: #d4af37;
+}
+
+/* Hero Section (Home) */
+.hero {
+    background-color: #111; /* Idealmente seria uma imagem de fundo aqui */
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero h3 { color: #d4af37; margin-bottom: 10px; font-style: italic; }
+.hero h1 { font-size: 40px; margin-bottom: 30px; }
+
+.btn-agendar {
+    border: 1px solid #d4af37;
+    background: transparent;
+    color: #d4af37;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.btn-agendar:hover {
+    background: #d4af37;
+    color: #111;
+}
+
+/* Info Cards */
+.info-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    padding: 40px;
+    border-radius: 20px;
+    width: 350px;
+    text-align: center;
+}
+
+.card-yellow { background-color: #d4b830; color: #111; }
+.card-dark { background-color: #2c2c2c; color: #fff; }
+
+/* Página de Cadastro */
+.container-cadastro {
+    display: flex;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+.form-box {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-box h2 { margin-bottom: 10px; color: #2c2c2c; }
+.form-box p { margin-bottom: 20px; color: #666; font-size: 14px; }
+
+.input-group { margin-bottom: 15px; }
+.input-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px;}
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-submit {
+    width: 100%;
+    background-color: #2c2c2c;
+    color: #d4af37;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.btn-submit:hover { background-color: #1a1a1a; }
+
+.mensagem-resultado { margin-top: 15px; font-weight: bold; text-align: center; }

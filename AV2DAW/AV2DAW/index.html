@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>STUDIO V - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">STUDIO V</div>
+    </header>
+
+    <nav id="menuPrincipal" class="menu-dropdown">
+        <ul>
+            <li><a href="#" onclick="abrirLogin()">Entrar</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Serviços</a>
+                <div class="dropdown-content">
+                    <a href="#">Cabelos</a>
+                    <a href="#">Unhas</a>
+                    <a href="#">Sobrancelhas</a>
+                    <a href="#">SPA</a>
+                    <a href="#">Barba</a>
+                </div>
+            </li>
+            <li><a href="agendar.html">Agendar</a></li>
+            <li><a href="#">Promoções</a></li>
+            <li><a href="#">Pacotes</a></li>
+            <li><a href="#">Meus agendamentos</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h3>Cabelereiros experientes</h3>
+                <h1>Para a melhor versão de você</h1>
+                <button class="btn-agendar" onclick="location.href='agendar.html'">AGENDAR ATENDIMENTO</button>
+            </div>
+        </section>
+
+        <section class="info-cards">
+            <div class="card card-yellow">
+                <h2>Conheça nosso espaço</h2>
+                <h3>Agende seu horário</h3>
+                <p>ENDEREÇO: R. Francisco Sá, 89 - Copacabana, Rio de Janeiro</p>
+                <p>Contato: (21) 92184-2854</p>
+            </div>
+            <div class="card card-dark">
+                <h2>Estamos FUNCIONANDO</h2>
+                <p>SEGUNDA - SEXTA</p>
+                <p>8:00H - 19:00H</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="modalLogin" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharLogin()">&times;</span>
+            <h2>LOGIN</h2>
+            <form id="formLogin">
+                <input type="text" placeholder="CPF" required>
+                <input type="text" placeholder="Nome" required>
+                <input type="password" placeholder="Senha" required>
+                <button type="button" class="btn-entrar">Entrar</button>
+                <p style="font-size: 12px; margin-top: 15px;">Não possui conta. <a href="cadastro.html" style="color: #007bff;">Cadastre-se</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
