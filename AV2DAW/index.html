@@ -2,49 +2,116 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STUDIO V - Home</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <div class="logo">STUDIO V</div>
-        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">STUDIO V</div>
+            <div class="menu-icon" onclick="abrirLogin()">&#9776;</div>
+        </div>
     </header>
 
-    <nav id="menuPrincipal" class="menu-dropdown">
-        <ul>
-            <li><a href="cadastro.html">Entrar / Cadastrar</a></li>
-            <li><a href="#">Serviços</a></li>
-            <li><a href="#">Agendar</a></li>
-            <li><a href="#">Promoções</a></li>
-            <li><a href="#">Pacotes</a></li>
-        </ul>
-    </nav>
-
-    <main>
-        <section class="hero">
-            <div class="hero-text">
-                <h3>Cabelereiros experientes</h3>
-                <h1>Para a melhor versão de você</h1>
-                <a href="cadastro.html" class="btn-agendar">AGENDAR ATENDIMENTO</a>
+    <main class="main-container">
+        
+        <section class="banner-section" style="background-image: url('https://via.placeholder.com/1200x500/333/fff?text=Imagem+Cabeleireiro+1');">
+            <div class="floating-box">
+                <h4 class="gold-text">Cabelereiros experientes</h4>
+                <h2>Para a melhor<br>versão de você</h2>
             </div>
         </section>
 
-        <section class="info-cards">
+        <section class="middle-section">
             <div class="card card-yellow">
-                <h2>Conheça nosso espaço</h2>
+                <p class="italic-title">Conheça nosso espaço</p>
                 <h3>Agende seu horário</h3>
-                <p>ENDEREÇO: R. Francisco Sá, 89 - Copacabana, Rio de Janeiro</p>
-                <p>Contato: (21) 92184-2854</p>
+                <p class="small-text mt-10">ENDEREÇO: R. Francisco Sá, 89 -<br>Copacabana, Rio de Janeiro - RJ,<br>22080-010</p>
+                <p class="small-text mt-10">Contato:<br>(21) 92184-2854<br>(21) 2569-2877</p>
             </div>
+            
             <div class="card card-dark">
-                <h2>Estamos FUNCIONANDO</h2>
-                <p>SEGUNDA - SEXTA</p>
-                <p>8:00H - 19:00H</p>
+                <p class="italic-title">Estamos</p>
+                <h3>FUNCIONANDO</h3>
+                <p class="small-text mt-10">8:00H - 19:00H</p>
+                <p class="small-text mt-10"><strong>SEGUNDA - TERÇA -<br>QUARTA - QUINTA - SEXTA</strong></p>
+                <p class="small-text mt-10">8:00H - 19:00H</p>
+            </div>
+
+            <div class="mini-carousel">
+                <img src="https://via.placeholder.com/60x100/555/fff" alt="img1" class="carousel-img side-img">
+                <img src="https://via.placeholder.com/80x120/444/fff" alt="img2" class="carousel-img center-img">
+                <img src="https://via.placeholder.com/60x100/555/fff" alt="img3" class="carousel-img side-img">
             </div>
         </section>
+
+        <section class="banner-section" style="background-image: url('https://via.placeholder.com/1200x500/444/fff?text=Imagem+Lavatorio'); margin-top: 40px;">
+            <div class="floating-box inovacao-box">
+                <h4 class="gold-text italic-title">Inovação</h4>
+                <h2>Tudo que você precisa<br>para renovar sua beleza<br>em um só lugar</h2>
+                <button class="btn-outline" onclick="location.href='agendar.html'">AGENDE SEU ATENDIMENTO</button>
+            </div>
+        </section>
+
+        <section class="testimonials-section">
+            <h4 class="gold-text italic-title">O que os nosso clientes dizem</h4>
+            <h2>AVALIAÇÃO DE CLIENTES</h2>
+            
+            <div class="reviews-container">
+                <div class="review-box">
+                    <p>"Salvaram o meu cabelo e me deixaram incrível, um dia MEGA especial para mim."</p>
+                    <h4>Raquel Miranda</h4>
+                    <p class="gold-text">★★★★★</p>
+                </div>
+                <div class="review-box">
+                    <p>"Não confio as minhas unhas a mais ninguém, são feitas cuidadosamente e duram muito tempo."</p>
+                    <h4>Eliza Queiros</h4>
+                    <p class="gold-text">★★★★★</p>
+                </div>
+                <div class="review-box">
+                    <p>"O melhor atendimento que já recebi em um salão de beleza, que qualidade, eu saí radiante."</p>
+                    <h4>Leila Diniz</h4>
+                    <p class="gold-text">★★★★★</p>
+                </div>
+            </div>
+        </section>
+
     </main>
+
+    <footer class="main-footer">
+        <h1 class="gold-text text-center">STUDIO V</h1>
+        <div class="footer-grid">
+            <div>
+                <h3>ENDEREÇO</h3>
+                <p>R. Francisco Sá, 89<br>Copacabana, Rio de Janeiro<br>RJ, 22080-010</p>
+            </div>
+            <div>
+                <h3>CONTATO</h3>
+                <p>📞 (21) 92184-2854</p>
+                <p>📱 (21) 92184-2854</p>
+                <p>✉️ studiov@gmail.com</p>
+            </div>
+            <div>
+                <br>
+                <p>📸 @STUDIOV</p>
+                <p>🐦 @STUDIOV</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="modalLogin" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharLogin()">&times;</span>
+            <h2>LOGIN</h2>
+            <form id="formLogin">
+                <input type="text" placeholder="CPF" required>
+                <input type="text" placeholder="Nome" required>
+                <input type="password" placeholder="Senha" required>
+                <button type="button" class="btn-entrar">Entrar</button>
+                <p style="font-size: 12px; margin-top: 15px;">Não possui conta. <a href="cadastro.html" style="color: #007bff;">Cadastre-se</a></p>
+            </form>
+        </div>
+    </div>
 
     <script src="js/app.js"></script>
 </body>
